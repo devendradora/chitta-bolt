@@ -49,6 +49,12 @@ export default {
         'slide-up': 'slideUp 0.3s ease-out',
         'bounce-gentle': 'bounceGentle 2s infinite',
         'pulse-gentle': 'pulseGentle 3s ease-in-out infinite',
+        'orbit-1': 'orbit1 15s linear infinite',
+        'orbit-2': 'orbit2 20s linear infinite',
+        'orbit-3': 'orbit3 18s linear infinite',
+        'orbit-4': 'orbit4 25s linear infinite',
+        'orbit-5': 'orbit5 22s linear infinite',
+        'orbit-6': 'orbit6 19s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -66,6 +72,30 @@ export default {
         pulseGentle: {
           '0%, 100%': { opacity: '0.8' },
           '50%': { opacity: '1' },
+        },
+        orbit1: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
+        orbit2: {
+          '0%': { transform: 'rotate(60deg)' },
+          '100%': { transform: 'rotate(420deg)' },
+        },
+        orbit3: {
+          '0%': { transform: 'rotate(120deg)' },
+          '100%': { transform: 'rotate(480deg)' },
+        },
+        orbit4: {
+          '0%': { transform: 'rotate(180deg)' },
+          '100%': { transform: 'rotate(540deg)' },
+        },
+        orbit5: {
+          '0%': { transform: 'rotate(240deg)' },
+          '100%': { transform: 'rotate(600deg)' },
+        },
+        orbit6: {
+          '0%': { transform: 'rotate(300deg)' },
+          '100%': { transform: 'rotate(660deg)' },
         }
       }
     },

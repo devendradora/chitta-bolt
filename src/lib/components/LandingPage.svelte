@@ -1,6 +1,7 @@
 <script>
   import AuthForm from './AuthForm.svelte'
   import { Brain, Heart, Footprints, MessageCircle, Sparkles, Trophy, Check, Star } from '@lucide/svelte'
+  import TypewriterText from './TypewriterText.svelte'
   
   let showAuthForm = false
   let isLogin = true
@@ -21,15 +22,15 @@
   <div class="relative min-h-screen">
     <!-- Background gradient - simplified to one consistent color scheme -->
     <div class="absolute inset-0 bg-gradient-to-br from-emerald-400 to-teal-600 overflow-hidden">
-      <!-- Animated background elements -->
-      <div class="absolute -top-40 -right-40 w-80 h-80 bg-white/10 rounded-full blur-3xl"></div>
-      <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-white/15 rounded-full blur-3xl"></div>
-      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+      <!-- Animated background elements - reduced opacity -->
+      <div class="absolute -top-40 -right-40 w-80 h-80 bg-white/5 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-white/5 rounded-full blur-3xl"></div>
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/2 rounded-full blur-3xl"></div>
       
       <!-- Additional static elements -->
-      <div class="absolute top-20 left-20 w-32 h-32 bg-white/8 rounded-full blur-2xl"></div>
-      <div class="absolute bottom-20 right-20 w-24 h-24 bg-white/12 rounded-full blur-xl"></div>
-      <div class="absolute top-1/3 right-1/4 w-16 h-16 bg-white/10 rounded-full blur-lg"></div>
+      <div class="absolute top-20 left-20 w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
+      <div class="absolute bottom-20 right-20 w-24 h-24 bg-white/5 rounded-full blur-xl"></div>
+      <div class="absolute top-1/3 right-1/4 w-16 h-16 bg-white/5 rounded-full blur-lg"></div>
     </div>
 
     {#if showAuthForm}
@@ -69,7 +70,7 @@
               class="hover:opacity-80 transition-opacity duration-300 transform hover:scale-105"
             >
               <img 
-                src="/src/lib/images/white_circle_360x360.png" 
+                src="/images/white_circle_360x360.png" 
                 alt="Made with Bolt.new" 
                 class="h-12 w-12"
               />
@@ -77,7 +78,7 @@
             
             <button 
               on:click={handleSignIn}
-              class="px-6 py-3 bg-white/20 backdrop-blur-sm text-white rounded-xl font-medium hover:bg-white/30 transition-all duration-300 border border-white/30"
+              class="px-6 py-3 bg-emerald-700 backdrop-blur-sm text-white rounded-xl font-medium hover:bg-emerald-800 transition-all duration-300 border border-white/30 shadow-lg"
             >
               Sign In
             </button>
@@ -89,7 +90,9 @@
           <div class="space-y-8">
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight drop-shadow-lg">
               Your Journey to <br />
-              <span class="bg-gradient-to-r from-white to-teal-200 bg-clip-text text-transparent">Inner Peace</span> Begins Here
+              <span class="bg-gradient-to-r from-white to-teal-200 bg-clip-text text-transparent">
+                <TypewriterText text="Inner Peace" speed={100} />
+              </span> Begins Here
             </h2>
             <p class="text-xl text-white/90 leading-relaxed max-w-lg drop-shadow-md">
               Track your emotions, build mindful habits, and grow with personalized AI support—all while earning blockchain-secured achievements for your journey
@@ -97,7 +100,7 @@
             <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
               <button 
                 on:click={handleGetStarted}
-                class="px-8 py-4 bg-white text-emerald-600 rounded-xl font-bold text-lg hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                class="px-8 py-4 bg-emerald-700 text-white rounded-xl font-bold text-lg hover:bg-emerald-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 border border-white/30"
               >
                 Get Started Free
               </button>
@@ -110,7 +113,7 @@
             </div>
           </div>
           
-          <!-- Animated Mood Emojis -->
+          <!-- App Preview with Animated Mood Emojis -->
           <div class="relative hidden lg:block">
             <div class="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-3xl border border-white/20 transform rotate-6 scale-95"></div>
             <div class="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-3xl border border-white/20 transform -rotate-3 scale-95"></div>
@@ -178,7 +181,56 @@
   </div>
 
   {#if !showAuthForm}
-    <!-- Features Section -->
+    <!-- Mobile Animated Mood Emojis Section -->
+    <div class="bg-white py-16 px-4 lg:hidden">
+      <div class="container mx-auto">
+        <div class="relative h-64 max-w-sm mx-auto">
+          <!-- Brain in center -->
+          <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center z-20 shadow-xl">
+            <Brain size={40} class="text-white" />
+          </div>
+          
+          <!-- Orbiting emojis -->
+          <div class="absolute w-full h-full animate-orbit-1">
+            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center border border-gray-100">
+              <span class="text-3xl">😊</span>
+            </div>
+          </div>
+          
+          <div class="absolute w-full h-full animate-orbit-2">
+            <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center border border-gray-100">
+              <span class="text-3xl">😢</span>
+            </div>
+          </div>
+          
+          <div class="absolute w-full h-full animate-orbit-3">
+            <div class="absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center border border-gray-100">
+              <span class="text-3xl">😠</span>
+            </div>
+          </div>
+          
+          <div class="absolute w-full h-full animate-orbit-4">
+            <div class="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center border border-gray-100">
+              <span class="text-3xl">😰</span>
+            </div>
+          </div>
+          
+          <div class="absolute w-full h-full animate-orbit-5">
+            <div class="absolute top-1/4 right-0 transform translate-x-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center border border-gray-100">
+              <span class="text-3xl">😌</span>
+            </div>
+          </div>
+          
+          <div class="absolute w-full h-full animate-orbit-6">
+            <div class="absolute bottom-1/4 left-0 transform -translate-x-1/2 translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center border border-gray-100">
+              <span class="text-3xl">🤗</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Section - Reordered -->
     <div id="features" class="bg-white py-24 px-4">
       <div class="container mx-auto">
         <div class="text-center mb-16">
@@ -189,18 +241,7 @@
         </div>
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- Feature 1 -->
-          <div class="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-3xl p-8 shadow-lg border border-primary-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-            <div class="w-16 h-16 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mb-6">
-              <Brain size={32} class="text-white" />
-            </div>
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Guided Meditation</h3>
-            <p class="text-gray-600">
-              Discover peace with our guided meditation sessions, designed for all experience levels from beginners to advanced practitioners.
-            </p>
-          </div>
-          
-          <!-- Feature 2 -->
+          <!-- Feature 1: Mood Tracking -->
           <div class="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-3xl p-8 shadow-lg border border-primary-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
             <div class="w-16 h-16 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mb-6">
               <Heart size={32} class="text-white" />
@@ -211,29 +252,18 @@
             </p>
           </div>
           
-          <!-- Feature 3 -->
+          <!-- Feature 2: Guided Meditation -->
           <div class="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-3xl p-8 shadow-lg border border-primary-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
             <div class="w-16 h-16 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mb-6">
-              <MessageCircle size={32} class="text-white" />
+              <Brain size={32} class="text-white" />
             </div>
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">AI Wellness Coach</h3>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Guided Meditation</h3>
             <p class="text-gray-600">
-              Chat with our AI wellness coach for personalized guidance, support, and mental health resources anytime you need it.
+              Discover peace with our guided meditation sessions, designed for all experience levels from beginners to advanced practitioners.
             </p>
           </div>
           
-          <!-- Feature 4 -->
-          <div class="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-3xl p-8 shadow-lg border border-primary-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-            <div class="w-16 h-16 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mb-6">
-              <Footprints size={32} class="text-white" />
-            </div>
-            <h3 class="text-2xl font-bold text-gray-800 mb-4">Activity Tracking</h3>
-            <p class="text-gray-600">
-              Monitor your walking, exercise, and other physical activities that contribute to your overall mental wellbeing.
-            </p>
-          </div>
-          
-          <!-- Feature 5 -->
+          <!-- Feature 3: Daily Motivation -->
           <div class="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-3xl p-8 shadow-lg border border-primary-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
             <div class="w-16 h-16 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mb-6">
               <Sparkles size={32} class="text-white" />
@@ -244,7 +274,18 @@
             </p>
           </div>
           
-          <!-- Feature 6 -->
+          <!-- Feature 4: Activity Tracking -->
+          <div class="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-3xl p-8 shadow-lg border border-primary-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            <div class="w-16 h-16 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mb-6">
+              <Footprints size={32} class="text-white" />
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Activity Tracking</h3>
+            <p class="text-gray-600">
+              Monitor your walking, exercise, and other physical activities that contribute to your overall mental wellbeing.
+            </p>
+          </div>
+          
+          <!-- Feature 5: Achievement NFTs -->
           <div class="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-3xl p-8 shadow-lg border border-primary-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
             <div class="w-16 h-16 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mb-6">
               <Trophy size={32} class="text-white" />
@@ -252,6 +293,17 @@
             <h3 class="text-2xl font-bold text-gray-800 mb-4">Achievement NFTs</h3>
             <p class="text-gray-600">
               Earn blockchain-verified achievements as you progress in your wellness journey, creating a permanent record of your growth.
+            </p>
+          </div>
+          
+          <!-- Feature 6: AI Wellness Coach -->
+          <div class="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-3xl p-8 shadow-lg border border-primary-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+            <div class="w-16 h-16 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mb-6">
+              <MessageCircle size={32} class="text-white" />
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">AI Wellness Coach</h3>
+            <p class="text-gray-600">
+              Chat with our AI wellness coach for personalized guidance, support, and mental health resources anytime you need it.
             </p>
           </div>
         </div>
@@ -483,7 +535,7 @@
               class="hover:opacity-80 transition-opacity duration-300 transform hover:scale-105"
             >
               <img 
-                src="/src/lib/images/logotext_poweredby_360w.png" 
+                src="/images/logotext_poweredby_360w.png" 
                 alt="Powered by Bolt.new" 
                 class="h-9 w-auto"
               />
