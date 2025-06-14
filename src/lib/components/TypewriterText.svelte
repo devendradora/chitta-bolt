@@ -5,11 +5,14 @@
   export let speed = 100;
   export let delay = 0;
   export let cursor = true;
+  export let loop = true;
+  export let pauseBetweenLoops = 2000;
   
   let displayedText = '';
   let currentIndex = 0;
   let interval;
   let mounted = false;
+  let isTyping = true;
   
   onMount(() => {
     mounted = true;
@@ -29,19 +32,49 @@
     if (!mounted) return;
     
     interval = setInterval(() => {
-      if (currentIndex < text.length) {
-        displayedText += text[currentIndex];
-        currentIndex++;
-      } else {
-        clearInterval(interval);
+      if (isTyping) {
+        if (currentIndex < text.length) {
+          displayedText += text[currentIndex];
+          currentIndex++;
+        } else if (loop) {
+          isTyping = false;
+          clearInterval(interval);
+          setTimeout(() => {
+            startDeleting();
+          }, pauseBetweenLoops);
+        } else {
+          clearInterval(interval);
+        }
       }
     }, speed);
+  }
+  
+  function startDeleting() {
+    interval = setInterval(() => {
+      if (!isTyping) {
+        if (displayedText.length > 0) {
+          displayedText = displayedText.slice(0, -1);
+        } else {
+          isTyping = true;
+          currentIndex = 0;
+          clearInterval(interval);
+          startTyping();
+        }
+      }
+    }, speed / 2);
   }
 </script>
 
 <span class="typewriter-container">
-  <span class="typewriter-text">{displayedText}</span>
-  {#if cursor && currentIndex < text.length}
+  <span class="typewriter-text">
+    {@html displayedText.replace(
+      /(Journey|Inner Peace)/g, 
+      (match) => match === 'Journey' 
+        ? '<span class="text-emerald-300 font-extrabold">Journey</span>' 
+        : '<span class="text-teal-300 font-extrabold">Inner Peace</span>'
+    )}
+  </span>
+  {#if cursor && (loop || currentIndex < text.length)}
     <span class="typewriter-cursor">|</span>
   {/if}
 </span>

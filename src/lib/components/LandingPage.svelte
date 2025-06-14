@@ -1,10 +1,26 @@
 <script>
+  import { onMount, onDestroy } from 'svelte'
   import AuthForm from './AuthForm.svelte'
   import { Brain, Heart, Footprints, MessageCircle, Sparkles, Trophy, Check, Star } from '@lucide/svelte'
   import TypewriterText from './TypewriterText.svelte'
   
   let showAuthForm = false
   let isLogin = true
+  
+  function handleCloseAuth() {
+    showAuthForm = false
+  }
+  
+  onMount(() => {
+    window.addEventListener('closeAuth', handleCloseAuth)
+    return () => {
+      window.removeEventListener('closeAuth', handleCloseAuth)
+    }
+  })
+  
+  onDestroy(() => {
+    window.removeEventListener('closeAuth', handleCloseAuth)
+  })
   
   function handleGetStarted() {
     showAuthForm = true
@@ -15,256 +31,192 @@
     showAuthForm = true
     isLogin = true
   }
+
+  // Slideshow functionality
+  let currentSlide = 0;
+  let slideInterval;
+  
+  const slides = [
+    '/images/brain.png'
+  ];
+  
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % slides.length;
+    resetInterval();
+  }
+  
+  function prevSlide() {
+    currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+    resetInterval();
+  }
+  
+  function goToSlide(index) {
+    currentSlide = index;
+    resetInterval();
+  }
+  
+  function resetInterval() {
+    if (slideInterval) clearInterval(slideInterval);
+    slideInterval = setInterval(nextSlide, 5000);
+  }
+  
+  onMount(() => {
+    resetInterval();
+    return () => {
+      if (slideInterval) clearInterval(slideInterval);
+    };
+  });
 </script>
 
 <div class="min-h-screen overflow-hidden">
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-primary-500/80 to-secondary-500/80 backdrop-blur-md">
+    <div class="container mx-auto px-6 py-3">
+      <div class="flex justify-between items-center">
+        <div class="flex items-center space-x-4">
+          <div class="bg-white/20 p-3.5 rounded-2xl backdrop-blur-sm border-2 border-white/30 shadow-xl transition-all duration-300 hover:scale-110 hover:bg-white/30 hover:shadow-2xl transform hover:rotate-6">
+            <Brain class="text-white transition-transform duration-300 hover:scale-110" size={36} />
+          </div>
+          <h1 class="text-5xl font-bold text-white drop-shadow-lg">Chitta</h1>
+        </div>
+        
+        <div class="flex items-center">
+          <a 
+            href="https://bolt.new" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="group hover:opacity-90 transition-all duration-300 transform hover:scale-110"
+            aria-label="Made with Bolt.new"
+          >
+            <!-- <div class="relative">
+              <div class="absolute -inset-1 bg-white/30 rounded-full blur-sm group-hover:bg-white/40 transition-all duration-300"></div>
+              <img 
+                src="/images/white_circle_360x360.png" 
+                alt="Made with Bolt.new" 
+                class="relative h-12 w-12 md:h-16 md:w-16 lg:h-20 lg:w-20 transition-all duration-300"
+              />
+            </div> -->
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
   <!-- Hero Section -->
   <div class="relative min-h-screen">
-    <!-- Background gradient - simplified to one consistent color scheme -->
-    <div class="absolute inset-0 bg-gradient-to-br from-emerald-400 to-teal-600 overflow-hidden">
-      <!-- Animated background elements - reduced opacity -->
-      <div class="absolute -top-40 -right-40 w-80 h-80 bg-white/5 rounded-full blur-3xl"></div>
-      <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-white/5 rounded-full blur-3xl"></div>
-      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-white/2 rounded-full blur-3xl"></div>
-      
-      <!-- Additional static elements -->
-      <div class="absolute top-20 left-20 w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
-      <div class="absolute bottom-20 right-20 w-24 h-24 bg-white/5 rounded-full blur-xl"></div>
-      <div class="absolute top-1/3 right-1/4 w-16 h-16 bg-white/5 rounded-full blur-lg"></div>
+    <!-- Background gradient - matching header -->
+    <div class="absolute inset-0 bg-gradient-to-r from-primary-500 to-secondary-500">
+      <!-- No additional background elements -->
     </div>
 
     {#if showAuthForm}
       <!-- Auth Form Section -->
       <div class="relative z-10 flex items-center justify-center min-h-screen px-4 py-12">
-        <div class="w-full max-w-md">
-          <button 
-            on:click={() => showAuthForm = false}
-            class="mb-6 flex items-center text-white hover:text-white/80 transition-colors"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M9.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L7.414 9H15a1 1 0 110 2H7.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd" />
-            </svg>
-            Back to Home
-          </button>
+        <div class="w-full max-w-md mt-16">
           <AuthForm bind:isLogin={isLogin} />
         </div>
       </div>
     {:else}
       <!-- Landing Page Content -->
-      <div class="relative z-10 container mx-auto px-4 py-8 md:py-16">
-        <!-- Header with Sign In button -->
-        <header class="flex justify-between items-center mb-12">
-          <div class="flex items-center space-x-3">
-            <div class="bg-white/20 p-3 rounded-2xl backdrop-blur-sm border border-white/30 shadow-xl">
-              <Brain class="text-white" size={32} />
-            </div>
-            <h1 class="text-4xl font-bold text-white drop-shadow-lg">Chitta</h1>
-          </div>
-          
-          <!-- Added logo to the left of sign in button -->
-          <div class="flex items-center space-x-4">
-            <a 
-              href="https://bolt.new" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              class="hover:opacity-80 transition-opacity duration-300 transform hover:scale-105"
-            >
-              <img 
-                src="/images/white_circle_360x360.png" 
-                alt="Made with Bolt.new" 
-                class="h-12 w-12"
-              />
-            </a>
-          </div>
-        </header>
+      <div class="relative z-10 container mx-auto px-4 pt-32 pb-16 md:pt-40">
+
+        <!-- Typewriter Text - Full Width Row -->
+        <div class="w-full mb-12 text-center">
+          <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight drop-shadow-lg">
+            <span class="bg-gradient-to-r from-white to-teal-200 bg-clip-text">
+              Your <TypewriterText text="Journey to Inner Peace Begins Here" speed={150} loop={true} pauseBetweenLoops={1000} />
+            </span>
+          </h2>
+        </div>
 
         <!-- Hero Content -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          <!-- Left Column -->
           <div class="space-y-8">
-            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight drop-shadow-lg">
-              <span class="bg-gradient-to-r from-white to-teal-200 bg-clip-text">
-                <TypewriterText text="Your Journey to Inner Peace Begins Here" speed={150} />
-              </span>
-            </h2>
-            <p class="text-xl text-white/90 leading-relaxed max-w-lg drop-shadow-md">
-              Track your emotions, build mindful habits, and grow with personalized AI support—all while earning blockchain-secured achievements for your journey
-            </p>
-            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-              <button 
-                on:click={handleGetStarted}
-                class="px-8 py-4 bg-white text-emerald-600 rounded-xl font-bold text-lg hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
-              >
-                Get Started
-              </button>
             
-               <button 
-              on:click={handleSignIn}
-                 class="px-8 py-4 bg-emerald-700 text-white rounded-xl font-bold text-lg hover:bg-emerald-800 transition-all duration-300 border border-white/30 text-center shadow-lg"
-            >
-              Sign In
-            </button>
-            </div>
-            <div class="flex items-center space-x-2 text-white/80">
-              <Check size={20} class="text-white" />
-              <span>Log Your Moods, Unlock Peace – Earn NFT Milestones as You Build a Healthier Mind.</span>
-            </div>
-          </div>
-          
-          <!-- App Preview with Animated Mood Emojis -->
-          <div class="relative hidden lg:block">
-            <div class="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-3xl border border-white/20 transform rotate-6 scale-95"></div>
-            <div class="absolute inset-0 bg-white/10 backdrop-blur-sm rounded-3xl border border-white/20 transform -rotate-3 scale-95"></div>
-            <div class="relative bg-white/15 backdrop-blur-md rounded-3xl border border-white/30 p-6 shadow-2xl">
-              <div class="aspect-[9/16] rounded-2xl overflow-hidden border-8 border-white/20 relative">
-                <img 
-                  src="https://images.pexels.com/photos/3758048/pexels-photo-3758048.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
-                  alt="Chitta App Preview" 
-                  class="w-15 h-15 object-cover"
-                />
-                
-                <!-- Animated Mood Emojis -->
-                <div class="absolute inset-0 flex items-center justify-center">
-                  <div class="relative w-48 h-48">
-                    <!-- Brain in center -->
-                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full flex items-center justify-center z-20 backdrop-blur-md border border-white/30">
-                      <Brain size={40} class="text-white" />
-                    </div>
-                    
-                    <!-- Orbiting emojis -->
-                    <div class="absolute w-full h-full animate-spin" style="animation-duration: 15s;">
-                      <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full w-12 h-12 flex items-center justify-center border border-white/30">
-                        <span class="text-2xl">😊</span>
-                      </div>
-                    </div>
-                    
-                    <div class="absolute w-full h-full animate-spin" style="animation-duration: 20s; animation-delay: 1s;">
-                      <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full w-12 h-12 flex items-center justify-center border border-white/30">
-                        <span class="text-2xl">😢</span>
-                      </div>
-                    </div>
-                    
-                    <div class="absolute w-full h-full animate-spin" style="animation-duration: 18s; animation-delay: 2s;">
-                      <div class="absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full w-12 h-12 flex items-center justify-center border border-white/30">
-                        <span class="text-2xl">😠</span>
-                      </div>
-                    </div>
-                    
-                    <div class="absolute w-full h-full animate-spin" style="animation-duration: 25s; animation-delay: 3s;">
-                      <div class="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full w-12 h-12 flex items-center justify-center border border-white/30">
-                        <span class="text-2xl">😰</span>
-                      </div>
-                    </div>
-                    
-                    <!-- Additional emojis at angles -->
-                    <div class="absolute w-full h-full animate-spin" style="animation-duration: 22s; animation-delay: 4s;">
-                      <div class="absolute top-1/4 right-0 transform translate-x-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full w-12 h-12 flex items-center justify-center border border-white/30">
-                        <span class="text-2xl">😌</span>
-                      </div>
-                    </div>
-                    
-                    <div class="absolute w-full h-full animate-spin" style="animation-duration: 19s; animation-delay: 5s;">
-                      <div class="absolute bottom-1/4 left-0 transform -translate-x-1/2 translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full w-12 h-12 flex items-center justify-center border border-white/30">
-                        <span class="text-2xl">🤗</span>
-                      </div>
-                    </div>
-                    
-                    <!-- New emojis -->
-                    <div class="absolute w-full h-full animate-spin" style="animation-duration: 17s; animation-delay: 6s;">
-                      <div class="absolute top-1/4 left-0 transform -translate-x-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full w-12 h-12 flex items-center justify-center border border-white/30">
-                        <span class="text-2xl">😴</span>
-                      </div>
-                    </div>
-                    
-                    <div class="absolute w-full h-full animate-spin" style="animation-duration: 23s; animation-delay: 7s;">
-                      <div class="absolute bottom-1/4 right-0 transform translate-x-1/2 translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full w-12 h-12 flex items-center justify-center border border-white/30">
-                        <span class="text-2xl">😤</span>
-                      </div>
-                    </div>
-                    
-                    <div class="absolute w-full h-full animate-spin" style="animation-duration: 21s; animation-delay: 8s;">
-                      <div class="absolute top-0 right-1/4 transform translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full w-12 h-12 flex items-center justify-center border border-white/30">
-                        <span class="text-2xl">😇</span>
+            <!-- Image Slider -->
+            <div class="relative h-64 sm:h-80 md:h-96 lg:h-[28rem] w-full rounded-2xl overflow-hidden -mt-8 -ml-2">
+              {#each slides as slide, i (i)}
+                {#if currentSlide === i}
+                  <div 
+                    class="absolute inset-0 flex items-center justify-center transition-opacity duration-1000 ease-in-out"
+                    style="opacity: {currentSlide === i ? 1 : 0}"
+                  >
+                    <div class="relative w-full h-full flex items-center justify-center">
+                      <div class="absolute inset-0 bg-gradient-to-br from-primary-500/20 to-secondary-500/20 backdrop-blur-sm rounded-2xl p-4 sm:p-6 md:p-8 flex items-center justify-center">
+                        <img 
+                          src={slide} 
+                          alt=""
+                          class="w-full h-full max-w-[90vw] max-h-[90vh] object-contain transition-all duration-500 transform hover:scale-105 scale-x-[-1]"
+                          style="min-height: 10rem;"
+                        />
                       </div>
                     </div>
                   </div>
-                </div>
-              </div>
+                {/if}
+              {/each}
             </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center w-full">
+              <button 
+                on:click={handleGetStarted}
+                class="w-full sm:w-48 px-4 py-4 bg-white text-emerald-600 rounded-xl font-bold text-lg hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 text-center"
+              >
+                Get Started
+              </button>
+              <button 
+                on:click={handleSignIn}
+                class="w-full sm:w-48 px-4 py-4 bg-emerald-700 text-white rounded-xl font-bold text-lg hover:bg-emerald-800 transition-all duration-300 border border-white/30 shadow-lg text-center"
+              >
+                Sign In
+              </button>
+            </div>
+          </div>
+          
+          <!-- Right Column - Text Content -->
+          <div class="space-y-6 lg:pl-8 pt-4">
+            <p class="text-2xl text-white/90 leading-relaxed drop-shadow-md">                          
+              Track your emotions, build mindful habits, and grow with personalized AI support—all while earning blockchain-secured achievements for your journey
+            </p>
+            <p class="text-2xl text-white/90 leading-relaxed drop-shadow-md">
+              Log Your Moods, Unlock Peace – Earn NFT Milestones as You Build a Healthier Mind.
+            </p>
           </div>
         </div>
       </div>
     {/if}
-  </div>
+  <style>
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .animate-fadeInUp {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+    
+    /* Hover effect for icons */
+    .icon-container:hover {
+      transform: translateY(-5px);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .icon-container {
+        animation-delay: calc(0.1s * var(--delay)) !important;
+      }
+    }
+  </style>
+</div>
 
-  {#if !showAuthForm}
-    <!-- Mobile Animated Mood Emojis Section -->
-    <div class="bg-white py-16 px-4 lg:hidden">
-      <div class="container mx-auto">
-        <div class="relative h-64 max-w-sm mx-auto">
-          <!-- Brain in center -->
-          <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-full flex items-center justify-center z-20 shadow-xl">
-            <Brain size={40} class="text-white" />
-          </div>
-          
-          <!-- Orbiting emojis -->
-          <div class="absolute w-full h-full animate-orbit-1">
-            <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center border border-gray-100">
-              <span class="text-3xl">😊</span>
-            </div>
-          </div>
-          
-          <div class="absolute w-full h-full animate-orbit-2">
-            <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center border border-gray-100">
-              <span class="text-3xl">😢</span>
-            </div>
-          </div>
-          
-          <div class="absolute w-full h-full animate-orbit-3">
-            <div class="absolute left-0 top-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center border border-gray-100">
-              <span class="text-3xl">😠</span>
-            </div>
-          </div>
-          
-          <div class="absolute w-full h-full animate-orbit-4">
-            <div class="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center border border-gray-100">
-              <span class="text-3xl">😰</span>
-            </div>
-          </div>
-          
-          <div class="absolute w-full h-full animate-orbit-5">
-            <div class="absolute top-1/4 right-0 transform translate-x-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center border border-gray-100">
-              <span class="text-3xl">😌</span>
-            </div>
-          </div>
-          
-          <div class="absolute w-full h-full animate-orbit-6">
-            <div class="absolute bottom-1/4 left-0 transform -translate-x-1/2 translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center border border-gray-100">
-              <span class="text-3xl">🤗</span>
-            </div>
-          </div>
-          
-          <!-- New emojis -->
-          <div class="absolute w-full h-full animate-orbit-7">
-            <div class="absolute top-1/4 left-0 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center border border-gray-100">
-              <span class="text-3xl">😴</span>
-            </div>
-          </div>
-          
-          <div class="absolute w-full h-full animate-orbit-8">
-            <div class="absolute bottom-1/4 right-0 transform translate-x-1/2 translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center border border-gray-100">
-              <span class="text-3xl">😤</span>
-            </div>
-          </div>
-          
-          <div class="absolute w-full h-full animate-orbit-9">
-            <div class="absolute top-0 right-1/4 transform translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center border border-gray-100">
-              <span class="text-3xl">😇</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
+{#if !showAuthForm}
     <!-- Features Section - Reordered -->
     <div id="features" class="bg-white py-24 px-4">
       <div class="container mx-auto">
@@ -289,8 +241,8 @@
           
           <!-- Feature 2: Guided Meditation -->
           <div class="bg-gradient-to-br from-primary-50 to-secondary-50 rounded-3xl p-8 shadow-lg border border-primary-100 hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
-            <div class="w-16 h-16 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mb-6">
-              <Brain size={32} class="text-white" />
+            <div class="w-16 h-16 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-2xl flex items-center justify-center mb-6 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:rotate-3">
+              <Brain size={32} class="text-white transition-transform duration-300 hover:scale-110" />
             </div>
             <h3 class="text-2xl font-bold text-gray-800 mb-4">Guided Meditation</h3>
             <p class="text-gray-600">
@@ -531,8 +483,8 @@
       <div class="container mx-auto">
         <div class="flex flex-col md:flex-row justify-between items-center">
           <div class="flex items-center space-x-3 mb-6 md:mb-0">
-            <div class="bg-white/10 p-3 rounded-xl">
-              <Brain class="text-white" size={24} />
+            <div class="bg-white/10 p-3 rounded-xl transition-all duration-300 hover:bg-white/20 hover:scale-110">
+              <Brain class="text-white transition-transform duration-300 hover:scale-110" size={24} />
             </div>
             <h2 class="text-2xl font-bold">Chitta</h2>
           </div>
@@ -584,6 +536,16 @@
 </div>
 
 <style>
+  /* Custom animations */
+  @keyframes float {
+    0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+    50% { transform: translate(-50%, -50%) translateY(-15px); }
+  }
+  
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+  
   /* Smooth scrolling */
   html {
     scroll-behavior: smooth;

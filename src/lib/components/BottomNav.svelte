@@ -4,8 +4,6 @@
 
   const navItems = [
     { href: '/', icon: Home, label: 'Home' },
-    { href: '/progress', icon: TrendingUp, label: 'Progress' },
-    { href: '/achievements', icon: Trophy, label: 'Achievements' },
     { href: '/motivation', icon: Sparkles, label: 'Motivation' },
     { href: '/chat', icon: MessageCircle, label: 'AI Chat' },
     { href: '/profile', icon: User, label: 'Profile' }
@@ -28,21 +26,16 @@
           <div class="absolute -top-1 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-primary-600 rounded-full"></div>
         {/if}
         
-        <!-- Icon with special styling for special pages -->
-        <div class="relative {(item.label === 'AI Chat' || item.label === 'Motivation' || item.label === 'Achievements') ? 'p-1 bg-gradient-to-r from-primary-500 to-secondary-500 rounded-xl' : ''}">
+        <!-- Icon -->
+        <div class="relative">
           <svelte:component 
             this={item.icon} 
             size={20} 
-            class="{(item.label === 'AI Chat' || item.label === 'Motivation' || item.label === 'Achievements') ? 'text-white' : ''} group-hover:scale-110 transition-transform duration-300" 
+            class="text-gray-600 group-hover:text-primary-600 group-hover:scale-110 transition-all duration-300" 
           />
-          
-          <!-- Pulse effect for special pages -->
-          {#if item.label === 'AI Chat' || item.label === 'Motivation' || item.label === 'Achievements'}
-            <div class="absolute inset-0 bg-gradient-to-r from-primary-400 to-secondary-400 rounded-xl animate-pulse opacity-50"></div>
-          {/if}
         </div>
         
-        <span class="text-xs mt-1 font-semibold group-hover:font-bold transition-all duration-300">
+        <span class="text-xs mt-1 font-medium text-gray-600 group-hover:text-primary-600 group-hover:font-semibold transition-all duration-300">
           {item.label}
         </span>
         
