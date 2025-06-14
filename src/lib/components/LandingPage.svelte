@@ -92,6 +92,12 @@
               <span class="bg-gradient-to-r from-white to-teal-200 bg-clip-text">
                 <TypewriterText text="Your Journey to Inner Peace Begins Here" speed={150} />
               </span>
+               <span class="bg-gradient-to-r from-white to-teal-200 bg-clip-text">
+                <TypewriterText text="Inner Peace Begins Here" speed={150} />
+              </span>
+               <span class="bg-gradient-to-r from-white to-teal-200 bg-clip-text">
+                <TypewriterText text="Begins Here" speed={150} />
+              </span>
             </h2>
             <p class="text-xl text-white/90 leading-relaxed max-w-lg drop-shadow-md">
               Track your emotions, build mindful habits, and grow with personalized AI support—all while earning blockchain-secured achievements for your journey
