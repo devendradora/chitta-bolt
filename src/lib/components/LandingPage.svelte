@@ -56,7 +56,7 @@
         <header class="flex justify-between items-center mb-12">
           <div class="flex items-center space-x-3">
             <div class="bg-white/20 p-3 rounded-2xl backdrop-blur-sm border border-white/30 shadow-xl">
-              <Brain class="text-white" size={45} />
+              <Brain class="text-white" size={32} />
             </div>
             <h1 class="text-4xl font-bold text-white drop-shadow-lg">Chitta</h1>
           </div>
@@ -127,7 +127,7 @@
                   <div class="relative w-48 h-48">
                     <!-- Brain in center -->
                     <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full flex items-center justify-center z-20 backdrop-blur-md border border-white/30">
-                      <Brain size={40} class="text-white" />
+                      <Brain size={40} class="text-white bg-white" />
                     </div>
                     
                     <!-- Orbiting emojis -->
