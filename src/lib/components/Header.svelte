@@ -40,7 +40,7 @@
       class="hover:opacity-80 transition-opacity duration-300 transform hover:scale-105"
     >
       <img 
-        src="/static/images/white_circle_360x360.png" 
+        src="static/images/white_circle_360x360.png" 
         alt="Made with Bolt.new" 
         class="h-12 w-12"
       />
