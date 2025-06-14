@@ -1,7 +1,7 @@
 <script>
   import { signIn, signUp } from '$lib/stores/auth.js'
   import { supabase } from '$lib/supabase.js'
-  import { Mail, Lock, Eye, EyeOff, User, Brain, Google } from '@lucide/svelte'
+  import { Mail, Lock, Eye, EyeOff, User, Brain, LogIn } from '@lucide/svelte'
 
   export let isLogin = true
 
@@ -274,7 +274,7 @@
         <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-700"></div>
         <span>Connecting...</span>
       {:else}
-        <Google size={20} />
+        <LogIn size={20} />
         <span>{isLogin ? 'Sign in with Google' : 'Sign up with Google'}</span>
       {/if}
     </button>
