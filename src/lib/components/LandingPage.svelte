@@ -92,10 +92,10 @@
               <span class="bg-gradient-to-r from-white to-teal-200 bg-clip-text">
                 <TypewriterText text="Your Journey to Inner Peace Begins Here" speed={150} />
               </span>
-               <span class="bg-gradient-to-r from-white to-teal-200 bg-clip-text">
+               <span class="bg-gradient-to-r from-blue to-teal-200 bg-clip-text">
                 <TypewriterText text="Inner Peace Begins Here" speed={150} />
               </span>
-               <span class="bg-gradient-to-r from-white to-teal-200 bg-clip-text">
+               <span class="bg-gradient-to-r from-red to-teal-200 bg-clip-text">
                 <TypewriterText text="Begins Here" speed={150} />
               </span>
             </h2>
