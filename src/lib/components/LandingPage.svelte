@@ -55,7 +55,7 @@
         <!-- Header with Sign In button -->
         <header class="flex justify-between items-center mb-12">
           <div class="flex items-center space-x-3">
-            <div class="bg-white/20 p-3 rounded-2xl backdrop-blur-sm border border-white/30 shadow-xl">
+            <div class="from-primary-500 to-secondary-500">
               <Brain class="text-white" size={32} />
             </div>
             <h1 class="text-4xl font-bold text-white drop-shadow-lg">Chitta</h1>
