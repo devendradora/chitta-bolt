@@ -72,7 +72,7 @@
               <img 
                 src="/images/white_circle_360x360.png" 
                 alt="Made with Bolt.new" 
-                class="h-12 w-13"
+                class="h-12 w-12"
               />
             </a>
           </div>
@@ -119,7 +119,7 @@
                 <img 
                   src="https://images.pexels.com/photos/3758048/pexels-photo-3758048.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
                   alt="Chitta App Preview" 
-                  class="w-full h-full object-cover"
+                  class="w-15 h-15 object-cover"
                 />
                 
                 <!-- Animated Mood Emojis -->
