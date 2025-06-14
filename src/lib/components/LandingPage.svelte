@@ -182,7 +182,7 @@
                     </div>
                     
                     <div class="absolute w-full h-full animate-spin" style="animation-duration: 21s; animation-delay: 8s;">
-                      <div class="absolute top-0 right-2/4 transform translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full w-12 h-12 flex items-center justify-center border border-white/30">
+                      <div class="absolute top-0 right-2/4 transform translate-y-3/2 bg-white/20 backdrop-blur-sm rounded-full w-12 h-12 flex items-center justify-center border border-white/30">
                         <span class="text-2xl">😇</span>
                       </div>
                     </div>
