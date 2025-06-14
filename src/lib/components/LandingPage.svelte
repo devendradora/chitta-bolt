@@ -75,13 +75,6 @@
                 class="h-12 w-12"
               />
             </a>
-            
-            <button 
-              on:click={handleSignIn}
-              class="px-6 py-3 bg-emerald-700 backdrop-blur-sm text-white rounded-xl font-medium hover:bg-emerald-800 transition-all duration-300 border border-white/30 shadow-lg"
-            >
-              Sign In
-            </button>
           </div>
         </header>
 
@@ -103,12 +96,12 @@
               >
                 Get Started Free
               </button>
-              <a 
-                href="#features"
-                class="px-8 py-4 bg-emerald-700 text-white rounded-xl font-bold text-lg hover:bg-emerald-800 transition-all duration-300 border border-white/30 text-center shadow-lg"
-              >
-                Learn More
-              </a>
+               <button 
+              on:click={handleSignIn}
+              class="px-6 py-3 bg-emerald-700 backdrop-blur-sm text-white rounded-xl font-medium hover:bg-emerald-800 transition-all duration-300 border border-white/30 shadow-lg"
+            >
+              Sign In
+            </button>
             </div>
             <div class="flex items-center space-x-2 text-white/80">
               <Check size={20} class="text-white" />
