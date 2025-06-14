@@ -1,6 +1,7 @@
 <script>
   import { signIn, signUp } from '$lib/stores/auth.js'
-  import { Mail, Lock, Eye, EyeOff, User, Brain } from '@lucide/svelte'
+  import { supabase } from '$lib/supabase.js'
+  import { Mail, Lock, Eye, EyeOff, User, Brain, Google } from '@lucide/svelte'
 
   export let isLogin = true
 
@@ -11,6 +12,7 @@
   let showPassword = false
   let showConfirmPassword = false
   let loading = false
+  let googleLoading = false
   let error = ''
   let success = ''
 
@@ -108,6 +110,29 @@
     }
 
     loading = false
+  }
+
+  async function handleGoogleSignIn() {
+    googleLoading = true
+    error = ''
+    
+    try {
+      const { data, error: authError } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: window.location.origin
+        }
+      })
+      
+      if (authError) {
+        error = getErrorMessage(authError)
+      }
+    } catch (err) {
+      console.error('Google sign in error:', err)
+      error = 'Failed to sign in with Google. Please try again.'
+    }
+    
+    googleLoading = false
   }
 
   // Clear messages when switching between login/signup
@@ -227,6 +252,31 @@
       class="w-full bg-emerald-600 text-white py-4 rounded-xl font-semibold hover:bg-emerald-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
     >
       {loading ? 'Loading...' : (isLogin ? 'Sign In' : 'Create Account')}
+    </button>
+
+    <!-- Google Sign In Button -->
+    <div class="relative flex items-center justify-center">
+      <div class="absolute inset-0 flex items-center">
+        <div class="w-full border-t border-white/20"></div>
+      </div>
+      <div class="relative px-4 bg-transparent">
+        <span class="text-white/70 text-sm">or continue with</span>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      on:click={handleGoogleSignIn}
+      disabled={googleLoading}
+      class="w-full bg-white text-gray-700 py-4 rounded-xl font-semibold hover:bg-gray-100 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 flex items-center justify-center space-x-3"
+    >
+      {#if googleLoading}
+        <div class="animate-spin rounded-full h-5 w-5 border-b-2 border-gray-700"></div>
+        <span>Connecting...</span>
+      {:else}
+        <Google size={20} />
+        <span>{isLogin ? 'Sign in with Google' : 'Sign up with Google'}</span>
+      {/if}
     </button>
 
     <div class="text-center pt-4">

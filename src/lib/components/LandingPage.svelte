@@ -89,10 +89,9 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div class="space-y-8">
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight drop-shadow-lg">
-              Your Journey to <br />
               <span class="bg-gradient-to-r from-white to-teal-200 bg-clip-text text-transparent">
-                <TypewriterText text="Inner Peace" speed={10} />
-              </span> Begins Here
+                <TypewriterText text="Your Journey to Inner Peace Begins Here" speed={150} />
+              </span>
             </h2>
             <p class="text-xl text-white/90 leading-relaxed max-w-lg drop-shadow-md">
               Track your emotions, build mindful habits, and grow with personalized AI support—all while earning blockchain-secured achievements for your journey
