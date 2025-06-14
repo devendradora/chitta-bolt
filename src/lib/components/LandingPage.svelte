@@ -94,7 +94,7 @@
                 on:click={handleGetStarted}
                 class="px-8 py-4 bg-white text-emerald-600 rounded-xl font-bold text-lg hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
-                Sign Up
+                Get Started
               </button>
             
                <button 
