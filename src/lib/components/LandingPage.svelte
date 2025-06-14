@@ -72,7 +72,7 @@
               <img 
                 src="/images/white_circle_360x360.png" 
                 alt="Made with Bolt.new" 
-                class="h-13 w-13"
+                class="h-12 w-12"
               />
             </a>
           </div>
