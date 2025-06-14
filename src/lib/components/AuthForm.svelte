@@ -298,7 +298,7 @@
         class="hover:opacity-80 transition-opacity duration-300 transform hover:scale-105"
       >
         <img 
-          src="/images/logotext_poweredby_360w.png" 
+          src="static/images/logotext_poweredby_360w.png" 
           alt="Powered by Bolt.new" 
           class="h-9 w-auto"
         />
