@@ -106,7 +106,7 @@
             </div>
             <div class="flex items-center space-x-2 text-white/80">
               <Check size={20} class="text-white" />
-              <span>No credit card required</span>
+              <span>Log Your Moods, Unlock Peace – Earn NFT Milestones as You Build a Healthier Mind.</span>
             </div>
           </div>
           
