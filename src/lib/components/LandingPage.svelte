@@ -96,9 +96,10 @@
               >
                 Get Started Free
               </button>
+            
                <button 
               on:click={handleSignIn}
-              class="px-6 py-3 bg-emerald-700 backdrop-blur-sm text-white rounded-xl font-medium hover:bg-emerald-800 transition-all duration-300 border border-white/30 shadow-lg"
+              class="px-8 py-4 bg-emerald-700 text-white rounded-xl font-bold text-lg hover:bg-emerald-800 transition-all duration-300 border border-white/30 text-center shadow-lg"
             >
               Sign In
             </button>
