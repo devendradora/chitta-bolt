@@ -127,7 +127,7 @@
                   <div class="relative w-48 h-48">
                     <!-- Brain in center -->
                     <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full flex items-center justify-center z-20 backdrop-blur-md border border-white/30">
-                      <Brain size={40} class="text-white bg-white" />
+                      <Brain size={40} class="text-white" />
                     </div>
                     
                     <!-- Orbiting emojis -->
