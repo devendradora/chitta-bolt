@@ -55,6 +55,9 @@ export default {
         'orbit-4': 'orbit4 25s linear infinite',
         'orbit-5': 'orbit5 22s linear infinite',
         'orbit-6': 'orbit6 19s linear infinite',
+        'orbit-7': 'orbit7 17s linear infinite',
+        'orbit-8': 'orbit8 23s linear infinite',
+        'orbit-9': 'orbit9 21s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -96,6 +99,18 @@ export default {
         orbit6: {
           '0%': { transform: 'rotate(300deg)' },
           '100%': { transform: 'rotate(660deg)' },
+        },
+        orbit7: {
+          '0%': { transform: 'rotate(30deg)' },
+          '100%': { transform: 'rotate(390deg)' },
+        },
+        orbit8: {
+          '0%': { transform: 'rotate(90deg)' },
+          '100%': { transform: 'rotate(450deg)' },
+        },
+        orbit9: {
+          '0%': { transform: 'rotate(150deg)' },
+          '100%': { transform: 'rotate(510deg)' },
         }
       }
     },

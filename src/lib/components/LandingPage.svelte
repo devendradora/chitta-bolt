@@ -51,9 +51,9 @@
       </div>
     {:else}
       <!-- Landing Page Content -->
-      <div class="relative z-10 container mx-auto px-4 py-12 md:py-24">
+      <div class="relative z-10 container mx-auto px-4 py-8 md:py-16">
         <!-- Header with Sign In button -->
-        <header class="flex justify-between items-center mb-16">
+        <header class="flex justify-between items-center mb-12">
           <div class="flex items-center space-x-3">
             <div class="bg-white/20 p-3 rounded-2xl backdrop-blur-sm border border-white/30 shadow-xl">
               <Brain class="text-white" size={32} />
@@ -100,7 +100,7 @@
             <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
               <button 
                 on:click={handleGetStarted}
-                class="px-8 py-4 bg-emerald-700 text-white rounded-xl font-bold text-lg hover:bg-emerald-800 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1 border border-white/30"
+                class="px-8 py-4 bg-white text-emerald-600 rounded-xl font-bold text-lg hover:bg-white/90 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
                 Get Started Free
               </button>
@@ -110,6 +110,10 @@
               >
                 Learn More
               </a>
+            </div>
+            <div class="flex items-center space-x-2 text-white/80">
+              <Check size={20} class="text-white" />
+              <span>No credit card required</span>
             </div>
           </div>
           
@@ -129,7 +133,7 @@
                 <div class="absolute inset-0 flex items-center justify-center">
                   <div class="relative w-48 h-48">
                     <!-- Brain in center -->
-                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-white/20 rounded-full flex items-center justify-center z-20 backdrop-blur-md border border-white/30">
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full flex items-center justify-center z-20 backdrop-blur-md border border-white/30">
                       <Brain size={40} class="text-white" />
                     </div>
                     
@@ -168,6 +172,25 @@
                     <div class="absolute w-full h-full animate-spin" style="animation-duration: 19s; animation-delay: 5s;">
                       <div class="absolute bottom-1/4 left-0 transform -translate-x-1/2 translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full w-12 h-12 flex items-center justify-center border border-white/30">
                         <span class="text-2xl">🤗</span>
+                      </div>
+                    </div>
+                    
+                    <!-- New emojis -->
+                    <div class="absolute w-full h-full animate-spin" style="animation-duration: 17s; animation-delay: 6s;">
+                      <div class="absolute top-1/4 left-0 transform -translate-x-1/2 -translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full w-12 h-12 flex items-center justify-center border border-white/30">
+                        <span class="text-2xl">😴</span>
+                      </div>
+                    </div>
+                    
+                    <div class="absolute w-full h-full animate-spin" style="animation-duration: 23s; animation-delay: 7s;">
+                      <div class="absolute bottom-1/4 right-0 transform translate-x-1/2 translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full w-12 h-12 flex items-center justify-center border border-white/30">
+                        <span class="text-2xl">😤</span>
+                      </div>
+                    </div>
+                    
+                    <div class="absolute w-full h-full animate-spin" style="animation-duration: 21s; animation-delay: 8s;">
+                      <div class="absolute top-0 right-1/4 transform translate-y-1/2 bg-white/20 backdrop-blur-sm rounded-full w-12 h-12 flex items-center justify-center border border-white/30">
+                        <span class="text-2xl">😇</span>
                       </div>
                     </div>
                   </div>
@@ -224,6 +247,25 @@
           <div class="absolute w-full h-full animate-orbit-6">
             <div class="absolute bottom-1/4 left-0 transform -translate-x-1/2 translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center border border-gray-100">
               <span class="text-3xl">🤗</span>
+            </div>
+          </div>
+          
+          <!-- New emojis -->
+          <div class="absolute w-full h-full animate-orbit-7">
+            <div class="absolute top-1/4 left-0 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center border border-gray-100">
+              <span class="text-3xl">😴</span>
+            </div>
+          </div>
+          
+          <div class="absolute w-full h-full animate-orbit-8">
+            <div class="absolute bottom-1/4 right-0 transform translate-x-1/2 translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center border border-gray-100">
+              <span class="text-3xl">😤</span>
+            </div>
+          </div>
+          
+          <div class="absolute w-full h-full animate-orbit-9">
+            <div class="absolute top-0 right-1/4 transform translate-y-1/2 bg-white shadow-lg rounded-full w-14 h-14 flex items-center justify-center border border-gray-100">
+              <span class="text-3xl">😇</span>
             </div>
           </div>
         </div>
@@ -487,6 +529,7 @@
         >
           Get Started Free
         </button>
+        <p class="mt-4 text-white/80">No credit card required • Free plan available</p>
       </div>
     </div>
     
