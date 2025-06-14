@@ -79,6 +79,7 @@
     }
 
     console.log('Initializing profile for user:', $user.id)
+    console.log('User metadata:', $user.user_metadata)
     await loadUserProfile()
     await loadUserStats()
   }
@@ -112,7 +113,7 @@
         email: profileData.email || ''
       }
       
-      console.log('Profile loaded successfully')
+      console.log('Profile loaded successfully:', profileData)
     } catch (err) {
       console.error('Error loading profile:', err)
       
@@ -120,14 +121,35 @@
       if (err.code === 'PGRST116') {
         console.log('User not found in users table, creating...')
         try {
+          // Extract name from user_metadata - handle different formats from different providers
+          const fullName = 
+            $user.user_metadata?.full_name || 
+            $user.user_metadata?.name || 
+            $user.user_metadata?.user_name || 
+            '';
+          
+          // Extract avatar URL - handle different formats from different providers
+          const avatarUrl = 
+            $user.user_metadata?.avatar_url || 
+            $user.user_metadata?.picture || 
+            $user.user_metadata?.profile_image || 
+            null;
+            
+          console.log('Creating user with data:', { 
+            id: $user.id, 
+            email: $user.email, 
+            fullName, 
+            avatarUrl 
+          })
+
           const newUserData = await makeAuthenticatedDbRequest(async () => {
             const { data: newUser, error: createError } = await supabase
               .from('users')
               .insert({
                 id: $user.id,
                 email: $user.email,
-                full_name: $user.user_metadata?.full_name || '',
-                avatar_url: $user.user_metadata?.avatar_url || null
+                full_name: fullName,
+                avatar_url: avatarUrl
               })
               .select()
               .single()
@@ -143,7 +165,7 @@
             full_name: newUserData.full_name || '',
             email: newUserData.email || ''
           }
-          console.log('User profile created successfully')
+          console.log('User profile created successfully:', newUserData)
         } catch (createErr) {
           console.error('Error creating user profile:', createErr)
           error = 'Failed to create user profile'
@@ -495,7 +517,7 @@
             <div class="relative">
               <div class="w-24 h-24 bg-gradient-to-br from-primary-500 to-secondary-500 rounded-full flex items-center justify-center shadow-xl">
                 <span class="text-white text-2xl font-bold">
-                  {getInitials(userProfile?.full_name || $user?.user_metadata?.full_name || $user?.email)}
+                  {getInitials(userProfile?.full_name || $user?.user_metadata?.full_name || $user?.user_metadata?.name || $user?.email)}
                 </span>
               </div>
               <div class="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-white shadow-lg flex items-center justify-center">
@@ -554,7 +576,7 @@
                 <div class="space-y-3">
                   <div class="flex items-center justify-between">
                     <h2 class="text-2xl font-bold text-gray-800">
-                      {userProfile?.full_name || $user?.user_metadata?.full_name || 'User'}
+                      {userProfile?.full_name || $user?.user_metadata?.full_name || $user?.user_metadata?.name || 'User'}
                     </h2>
                     <button
                       on:click={startEditing}

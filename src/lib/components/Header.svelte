@@ -6,6 +6,9 @@
     if ($user?.user_metadata?.full_name) {
       return $user.user_metadata.full_name.split(' ')[0]
     }
+    if ($user?.user_metadata?.name) {
+      return $user.user_metadata.name.split(' ')[0]
+    }
     return $user?.email?.split('@')[0] || 'User'
   }
 </script>
@@ -37,7 +40,7 @@
       class="hover:opacity-80 transition-opacity duration-300 transform hover:scale-105"
     >
       <img 
-        src="/images/white_circle_360x360.png" 
+        src="/static/images/white_circle_360x360.png" 
         alt="Made with Bolt.new" 
         class="h-12 w-12"
       />

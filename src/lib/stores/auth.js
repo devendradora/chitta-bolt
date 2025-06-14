@@ -70,6 +70,7 @@ async function initializeAuth() {
     
     if (session?.user) {
       console.log('Valid session found from Supabase, user:', session.user.id)
+      console.log('User metadata from session:', session.user.user_metadata) // Debug log for user metadata
       
       // Validate session is not expired
       const now = Date.now()
@@ -177,6 +178,9 @@ async function validateStoredSession(storedSession) {
 // Ensure user profile exists in database
 async function ensureUserProfile(authUser) {
   try {
+    console.log('Ensuring user profile exists for:', authUser.id)
+    console.log('User metadata:', authUser.user_metadata)
+    
     const { data: existingUser, error: fetchError } = await supabase
       .from('users')
       .select('id')
@@ -187,25 +191,50 @@ async function ensureUserProfile(authUser) {
       // User doesn't exist, create profile
       console.log('Creating user profile for:', authUser.id)
       
+      // Extract name from user_metadata - handle different formats from different providers
+      const fullName = 
+        authUser.user_metadata?.full_name || 
+        authUser.user_metadata?.name || 
+        authUser.user_metadata?.user_name || 
+        '';
+      
+      // Extract avatar URL - handle different formats from different providers
+      const avatarUrl = 
+        authUser.user_metadata?.avatar_url || 
+        authUser.user_metadata?.picture || 
+        authUser.user_metadata?.profile_image || 
+        null;
+      
+      console.log('Extracted profile data:', { 
+        fullName, 
+        avatarUrl, 
+        email: authUser.email 
+      })
+      
       const { error: insertError } = await supabase
         .from('users')
         .insert({
           id: authUser.id,
           email: authUser.email,
-          full_name: authUser.user_metadata?.full_name || '',
-          avatar_url: authUser.user_metadata?.avatar_url || null
+          full_name: fullName,
+          avatar_url: avatarUrl
         })
 
       if (insertError) {
         console.error('Error creating user profile:', insertError)
+        throw insertError
       } else {
         console.log('User profile created successfully')
       }
     } else if (fetchError) {
       console.error('Error checking user profile:', fetchError)
+      throw fetchError
+    } else {
+      console.log('User profile already exists:', existingUser.id)
     }
   } catch (error) {
     console.error('Error in ensureUserProfile:', error)
+    throw error
   }
 }
 
@@ -215,6 +244,7 @@ supabase.auth.onAuthStateChange(async (event, session) => {
   
   try {
     if (event === 'SIGNED_IN' && session?.user) {
+      console.log('User metadata from SIGNED_IN event:', session.user.user_metadata) // Debug log
       user.set(session.user)
       sessionError.set(null)
       
@@ -243,6 +273,7 @@ supabase.auth.onAuthStateChange(async (event, session) => {
       
       if (session?.user) {
         // User is authenticated
+        console.log('User metadata from INITIAL_SESSION event:', session.user.user_metadata) // Debug log
         user.set(session.user)
         sessionError.set(null)
         
