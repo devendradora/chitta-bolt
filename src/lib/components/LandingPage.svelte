@@ -91,7 +91,7 @@
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight drop-shadow-lg">
               Your Journey to <br />
               <span class="bg-gradient-to-r from-white to-teal-200 bg-clip-text text-transparent">
-                <TypewriterText text="Inner Peace" speed={100} />
+                <TypewriterText text="Inner Peace" speed={10} />
               </span> Begins Here
             </h2>
             <p class="text-xl text-white/90 leading-relaxed max-w-lg drop-shadow-md">
