@@ -89,7 +89,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div class="space-y-8">
             <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight drop-shadow-lg">
-              <span class="bg-gradient-to-r from-white to-red-200 bg-clip-text">
+              <span class="bg-gradient-to-r from-white to-teal-200 bg-clip-text">
                 <TypewriterText text="Your Journey to Inner Peace Begins Here" speed={150} />
               </span>
             </h2>
